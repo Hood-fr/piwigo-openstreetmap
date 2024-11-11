@@ -93,7 +93,10 @@ function osm_get_gps($page)
     );
 
     // Get id of gpx file set in osm settings
-    $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'];
+    if (isset($conf['osm_conf']['category_description']['display_gpx']))
+    {
+      $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'] ;
+    }
 
     if(empty($osm_gpx_file_to_display))
     {
@@ -230,7 +233,7 @@ function osm_get_items($page)
     i.width
         FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL AND latitude != 0 AND latitude != 0 ".$forbidden." GROUP BY i.id;";
+            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL AND i.latitude != 0 AND i.latitude != 0 ".$forbidden." GROUP BY i.id;";
     $php_data = array_from_query($query);
     //print_r($php_data);
     $js_data = array();
@@ -575,6 +578,7 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             'TOTAL'             => sprintf( l10n('ITEMS'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
+            'DATA_URL'          => get_absolute_root_url().$conf['data_location'],
             'default_baselayer' => $conf['osm_conf']['map']['baselayer'],
         )
     );
