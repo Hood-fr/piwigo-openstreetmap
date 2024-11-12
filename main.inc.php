@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: OpenStreetMap
-Version: 14.b
+Version: 15.a
 Description: OpenStreetMap integration for piwigo
-Plugin URI: http://piwigo.org/ext/extension_view.php?eid=701
+Plugin URI: https://piwigo.org/ext/extension_view.php?eid=701
 Author: xbmgsharp
 Author URI: https://github.com/xbgmsharp/piwigo-openstreetmap
 Has Settings: webmaster
