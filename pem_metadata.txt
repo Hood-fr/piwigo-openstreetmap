@@ -1,4 +1,4 @@
 File automatically created from SVN or Git repository.
 
 URL: https://github.com/Piwigo/piwigo-openstreetmap 
-Revision: eea7ab86ec837d6675e0180d3976ab60b584189a (Wed Oct 23 15:30:57 2024 +0200)
+Revision: de565471c5f1084ce13733ed6071306f9a02c5e5 (Wed Apr 16 14:19:56 2025 +0200)

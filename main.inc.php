@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: OpenStreetMap
-Version: 15.a
+Version: 15.d
 Description: OpenStreetMap integration for piwigo
 Plugin URI: https://piwigo.org/ext/extension_view.php?eid=701
 Author: xbmgsharp
@@ -13,9 +13,11 @@ Has Settings: webmaster
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // Define the path to our plugin.
+global $conf, $prefixeTable;
+
 define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
-global $conf;
+define('osm_place_table', $prefixeTable.'osm_places');
 
 // Prepare configuration
 $conf['osm_conf'] = safe_unserialize($conf['osm_conf']);
@@ -101,6 +103,21 @@ function osm_end_index()
 if (defined('IN_ADMIN')) {
 	include_once(OSM_PATH.'/admin/admin_boot.php');
 }
+
+//if community active
+if (isset($pwg_loaded_plugins['community']))
+{
+  include_once(OSM_PATH.'admin/admin_batchmanager.php');
+
+  add_event_handler('community_loc_end_element_set_global', 'osm_loc_end_element_set_global');
+  
+  add_event_handler('community_element_set_global_action', 'osm_element_set_global_action');
+  
+}
+// file containing API function
+$ws_file = OSM_PATH . 'include/ws_functions.inc.php';
+add_event_handler('ws_invoke_allowed', 'osm_ws_images_setInfo',
+    EVENT_HANDLER_PRIORITY_NEUTRAL, $ws_file);
 
 
 function osm_blockmanager_apply($mb_arr)
